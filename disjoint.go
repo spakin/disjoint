@@ -33,7 +33,7 @@ type Set struct {
 	rank   int  // Rank (approximate depth) of the set's subtree
 }
 
-// Singleton lifts an arbitrary value into a singleton set.
+// Singleton returns a one-element Set.
 func Singleton() *Set {
 	s := &Set{rank: 0}
 	s.parent = s
