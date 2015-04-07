@@ -29,17 +29,13 @@ package disjoint
 
 // A Set represents a disjoint set in a disjoint-set forest.
 type Set struct {
-	value  interface{} // Arbitrary user-provided value
-	parent *Set        // Parent set
-	rank   int         // Rank (approximate depth) of the set's subtree
+	parent *Set // Parent set
+	rank   int  // Rank (approximate depth) of the set's subtree
 }
 
 // Singleton lifts an arbitrary value into a singleton set.
-func Singleton(v interface{}) *Set {
-	s := &Set{
-		value: v,
-		rank:  0,
-	}
+func Singleton() *Set {
+	s := &Set{rank: 0}
 	s.parent = s
 	return s
 }

@@ -14,7 +14,7 @@ func TestEvenOdd(t *testing.T) {
 	const N = 1000
 	sets := make([]*Set, N)
 	for i := 0; i < N; i++ {
-		sets[i] = Singleton(i)
+		sets[i] = Singleton()
 	}
 
 	// Merge each even number with its predecessor and each odd number with
