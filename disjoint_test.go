@@ -12,18 +12,18 @@ import (
 func TestEvenOdd(t *testing.T) {
 	// Create a bunch of singleton sets.
 	const N = 1000
-	sets := make([]*Set, N)
+	sets := make([]*Element, N)
 	for i := 0; i < N; i++ {
-		sets[i] = Singleton()
+		sets[i] = NewElement()
 	}
 
 	// Merge each even number with its predecessor and each odd number with
 	// its predecessor.
 	for i := 2; i < N; i += 2 {
-		sets[i].Merge(sets[i-2])
+		sets[i].Union(sets[i-2])
 	}
 	for i := 3; i < N; i += 2 {
-		sets[i].Merge(sets[i-2])
+		sets[i].Union(sets[i-2])
 	}
 
 	// Ensure that even numbers are in the same union as other even numbers
@@ -32,7 +32,7 @@ func TestEvenOdd(t *testing.T) {
 		s1 := rand.Intn(N)
 		s2 := rand.Intn(N)
 		sameMod2 := s1%2 == s2%2
-		sameRep := sets[s1].Representative() == sets[s2].Representative()
+		sameRep := sets[s1].Find() == sets[s2].Find()
 		if sameMod2 != sameRep {
 			t.Fatalf("Should %d and %d lie in the same set?  The package incorrectly says %v.",
 				s1, s2, sameRep)

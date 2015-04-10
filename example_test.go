@@ -22,11 +22,11 @@ func Example_maze() {
 
 	// A room is identified by its walls and by the other rooms it can reach.
 	type Room struct {
-		N       bool          // North side of room is a wall
-		S       bool          // South side of room is a wall
-		E       bool          // East side of room is a wall
-		W       bool          // West side of room is a wall
-		Reaches *disjoint.Set // Set of reachable rooms
+		N       bool              // North side of room is a wall
+		S       bool              // South side of room is a wall
+		E       bool              // East side of room is a wall
+		W       bool              // West side of room is a wall
+		Reaches *disjoint.Element // Element in a set of reachable rooms
 	}
 
 	// Initialize the maze data structure.
@@ -39,7 +39,7 @@ func Example_maze() {
 			maze[y][x].S = true
 			maze[y][x].E = true
 			maze[y][x].W = true
-			maze[y][x].Reaches = disjoint.Singleton()
+			maze[y][x].Reaches = disjoint.NewElement()
 		}
 	}
 
@@ -60,7 +60,7 @@ func Example_maze() {
 		} else {
 			continue // Can't go in the desired direction
 		}
-		if maze[y0][x0].Reaches.Representative() == maze[y1][x1].Reaches.Representative() {
+		if maze[y0][x0].Reaches.Find() == maze[y1][x1].Reaches.Find() {
 			continue // Already connected
 		}
 
@@ -74,7 +74,7 @@ func Example_maze() {
 			maze[y0][x0].S = false
 			maze[y1][x1].N = false
 		}
-		maze[y0][x0].Reaches.Merge(maze[y1][x1].Reaches)
+		maze[y0][x0].Reaches.Union(maze[y1][x1].Reaches)
 		cc--
 	}
 
