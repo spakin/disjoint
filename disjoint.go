@@ -15,6 +15,10 @@ The critical feature is that Find returns the same element when given any
 element in a set.  The implication is that two elements A and B belong to the
 same set if and only if A.Find() == B.Find().
 
+Both Union and Find take as arguments elements of sets, not the sets
+themselves.  Because sets are mutually disjoint, an element uniquely identifies
+a set.  Ergo, there is no need to pass sets to those functions.
+
 Disjoint sets are more limited in functionality than conventional sets.  They
 support only set union, not set intersection, set difference, or any other set
 operation.  They don't allow an element to reside in more than one set.  They
@@ -31,6 +35,10 @@ package disjoint
 
 // An Element represents a single element of a set.
 //
+// Note that, perhaps surprisingly, the package does not expose a corresponding
+// Set data type.  Sets exist only implicitly based on the sequence of Union
+// operations performed on their elements.
+//
 // The Data field lets a program store arbitrary data within an Element.  This
 // can be used, for example, to keep track of the total number of elements in
 // the associated set, the set's maximum-valued element, a map of attributes
@@ -44,49 +52,44 @@ type Element struct {
 	Data   interface{} // Arbitrary user-provided payload
 }
 
-// NewElement returns an element belonging to a singleton set.
+// NewElement creates a singleton set and returns its sole element.
 func NewElement() *Element {
 	s := &Element{rank: 0}
 	s.parent = s
 	return s
 }
 
-// Find returns an arbitrary Element from a set containing a given Element.
-// The important feature is that it returns the same value for every element in
-// the set.  Consequently, it can be used to test if two Elements belong to the
-// same set.
-func (s *Element) Find() *Element {
-	for s.parent != s {
-		s.parent = s.parent.parent
-		s = s.parent
+// When invoked on any element of a set, Find returns an arbitrary element of
+// the set.  The important feature is that it returns the same value when
+// invoked on any element of the set.  Consequently, it can be used to test if
+// two elements belong to the same set.
+func (e *Element) Find() *Element {
+	for e.parent != e {
+		e.parent = e.parent.parent
+		e = e.parent
 	}
-	return s
+	return e
 }
 
-// Given an element from each of two sets, Union performs a destructive union
-// of those sets.  Afterwards, the original sets no longer exist as separate
-// entities.
-//
-// Note that, perhaps surprisingly, the package does not expose an explicit Set
-// data type.  Sets exist only implicitly based on the sequence of Union
-// operations performed on their elements.
-func (s *Element) Union(t *Element) {
+// Given an element from each of two sets, Union establishes the union of those
+// sets.  Afterwards, the original sets no longer exist as separate entities.
+func Union(e1, e2 *Element) {
 	// Ensure the two Elements aren't already part of the same union.
-	sRoot := s.Find()
-	tRoot := t.Find()
-	if sRoot == tRoot {
+	e1Root := e1.Find()
+	e2Root := e2.Find()
+	if e1Root == e2Root {
 		return
 	}
 
 	// Create a union by making the shorter tree point to the root of the
 	// larger tree.
 	switch {
-	case sRoot.rank < tRoot.rank:
-		sRoot.parent = tRoot
-	case sRoot.rank > tRoot.rank:
-		tRoot.parent = sRoot
+	case e1Root.rank < e2Root.rank:
+		e1Root.parent = e2Root
+	case e1Root.rank > e2Root.rank:
+		e2Root.parent = e1Root
 	default:
-		tRoot.parent = sRoot
-		sRoot.rank++
+		e2Root.parent = e1Root
+		e1Root.rank++
 	}
 }

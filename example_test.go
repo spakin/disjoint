@@ -74,7 +74,7 @@ func Example_maze() {
 			maze[y0][x0].S = false
 			maze[y1][x1].N = false
 		}
-		maze[y0][x0].Reaches.Union(maze[y1][x1].Reaches)
+		disjoint.Union(maze[y0][x0].Reaches, maze[y1][x1].Reaches)
 		cc--
 	}
 

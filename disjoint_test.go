@@ -20,10 +20,10 @@ func TestEvenOdd(t *testing.T) {
 	// Merge each even number with its predecessor and each odd number with
 	// its predecessor.
 	for i := 2; i < N; i += 2 {
-		sets[i].Union(sets[i-2])
+		Union(sets[i], sets[i-2])
 	}
 	for i := 3; i < N; i += 2 {
-		sets[i].Union(sets[i-2])
+		Union(sets[i], sets[i-2])
 	}
 
 	// Ensure that even numbers are in the same union as other even numbers
