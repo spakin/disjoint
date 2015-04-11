@@ -25,7 +25,7 @@ operation.  They don't allow an element to reside in more than one set.  They
 don't even provide a way to enumerate the elements in a given set.  What makes
 them useful, though, is that they're extremely fast, especially for large sets;
 both Union and Find run in amortized near-constant time.  See
-http://en.wikipedia.org/wiki/Disjoint_set_forest for more information.
+http://en.wikipedia.org/wiki/Disjoint-set_data_structure for more information.
 
 Disjoint sets are often used in graph algorithms, for example to find a minimal
 spanning tree for a graph or to determine if adding a given edge to a graph
