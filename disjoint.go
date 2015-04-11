@@ -54,7 +54,7 @@ type Element struct {
 
 // NewElement creates a singleton set and returns its sole element.
 func NewElement() *Element {
-	s := &Element{rank: 0}
+	s := &Element{}
 	s.parent = s
 	return s
 }

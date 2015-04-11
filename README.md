@@ -30,4 +30,4 @@ The `disjoint` package is released under the [BSD 3-Clause License](http://opens
 Author
 ------
 
-[Scott Pakin](http://www.pakin.org/~scott/), *scott+npbm@pakin.org*
+[Scott Pakin](http://www.pakin.org/~scott/), *scott+disj@pakin.org*

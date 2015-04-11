@@ -39,3 +39,61 @@ func TestEvenOdd(t *testing.T) {
 		}
 	}
 }
+
+// createElements returns a slice of Elements.
+func createElements(n int) []*Element {
+	elts := make([]*Element, n)
+	for i, _ := range elts {
+		elts[i] = NewElement()
+	}
+	return elts
+}
+
+// selectIndexes returns a list of N pairs of indexes into a slice of length N.
+func selectIndexes(n int) [][2]int {
+	idxes := make([][2]int, n)
+	if n < 2 {
+		return idxes
+	}
+	for i, _ := range idxes {
+		idxes[i][0] = i
+		if i == 0 {
+			idxes[i][1] = rand.Intn(n)
+		} else {
+			idxes[i][1] = rand.Intn(i)
+		}
+	}
+	return idxes
+}
+
+// pairwiseUnions repeatedly takes pairwise unions of a number of sets.
+func pairwiseUnions(elts []*Element, idxes [][2]int) {
+	for _, idx := range idxes {
+		e1 := elts[idx[0]]
+		e2 := elts[idx[1]]
+		Union(e1, e2)
+	}
+}
+
+// BenchmarkUnion measures the time to perform N union operations.
+func BenchmarkUnion(b *testing.B) {
+	b.StopTimer()
+	elts := createElements(b.N)
+	idxes := selectIndexes(b.N)
+	b.StartTimer()
+	pairwiseUnions(elts, idxes)
+}
+
+// BenchmarkUnionFind measures the time to perform N union operations followed
+// by N find operations.  Find operations are so fast, we run out of memory
+// trying to allocate enough Elements as to stress Find's performance.
+func BenchmarkUnionFind(b *testing.B) {
+	b.StopTimer()
+	elts := createElements(b.N)
+	idxes := selectIndexes(b.N)
+	b.StartTimer()
+	pairwiseUnions(elts, idxes)
+	for _, e := range elts {
+		_ = e.Find()
+	}
+}
