@@ -1,6 +1,8 @@
 disjoint
 ========
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/spakin/disjoint)](https://goreportcard.com/report/github.com/spakin/disjoint) [![GoDoc](https://godoc.org/github.com/spakin/disjoint?status.svg)](https://godoc.org/github.com/spakin/disjoint)
+
 Introduction
 ------------
 
