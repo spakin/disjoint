@@ -20,7 +20,7 @@ command.
 Usage
 -----
 
-See the [`disjoint` API documentation](http://godoc.org/github.com/spakin/disjoint) for details.
+See the [`disjoint` API documentation](http://godoc.org/github.com/spakin/disjoint) for details and examples.
 
 Author
 ------
