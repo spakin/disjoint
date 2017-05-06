@@ -59,8 +59,8 @@ func NewElement() *Element {
 	return s
 }
 
-// When invoked on any element of a set, Find returns an arbitrary element of
-// the set.  The important feature is that it returns the same value when
+// Find returns an arbitrary element of a set when invoked on any element of
+// the set, The important feature is that it returns the same value when
 // invoked on any element of the set.  Consequently, it can be used to test if
 // two elements belong to the same set.
 func (e *Element) Find() *Element {
@@ -71,8 +71,8 @@ func (e *Element) Find() *Element {
 	return e
 }
 
-// Given an element from each of two sets, Union establishes the union of those
-// sets.  Afterwards, the original sets no longer exist as separate entities.
+// Union establishes the union of two sets when given an element from each set.
+// Afterwards, the original sets no longer exist as separate entities.
 func Union(e1, e2 *Element) {
 	// Ensure the two Elements aren't already part of the same union.
 	e1Root := e1.Find()

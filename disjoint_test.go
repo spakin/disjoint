@@ -43,7 +43,7 @@ func TestEvenOdd(t *testing.T) {
 // createElements returns a slice of Elements.
 func createElements(n int) []*Element {
 	elts := make([]*Element, n)
-	for i, _ := range elts {
+	for i := range elts {
 		elts[i] = NewElement()
 	}
 	return elts
@@ -55,7 +55,7 @@ func selectIndexes(n int) [][2]int {
 	if n < 2 {
 		return idxes
 	}
-	for i, _ := range idxes {
+	for i := range idxes {
 		idxes[i][0] = i
 		if i == 0 {
 			idxes[i][1] = rand.Intn(n)
