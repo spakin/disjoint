@@ -20,13 +20,6 @@ Usage
 
 See the [`disjoint` API documentation](http://godoc.org/github.com/spakin/disjoint) for details.
 
-Copyright and License
----------------------
-
-Copyright &copy; 2015 Scott Pakin
-
-The `disjoint` package is released under the [BSD 3-Clause License](http://opensource.org/licenses/BSD-3-Clause).  Informally, this means you can do whatever you want with the code as long as you give me (Scott Pakin) credit for writing the original version.
-
 Author
 ------
 
