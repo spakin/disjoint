@@ -1,7 +1,7 @@
 disjoint
 ========
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/spakin/disjoint)](https://goreportcard.com/report/github.com/spakin/disjoint) [![Build Status](https://travis-ci.org/spakin/disjoint.svg?branch=master)](https://travis-ci.org/spakin/disjoint) [![Go Reference](https://pkg.go.dev/badge/github.com/spakin/disjoint.svg)](https://pkg.go.dev/github.com/spakin/disjoint)
+[![Go Report Card](https://goreportcard.com/badge/github.com/spakin/disjoint)](https://goreportcard.com/report/github.com/spakin/disjoint) [![Build Status](https://travis-ci.com/spakin/disjoint.svg?branch=master)](https://travis-ci.com/spakin/disjoint) [![Go Reference](https://pkg.go.dev/badge/github.com/spakin/disjoint.svg)](https://pkg.go.dev/github.com/spakin/disjoint)
 
 Introduction
 ------------
