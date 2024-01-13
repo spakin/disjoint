@@ -1,25 +1,24 @@
 disjoint
 ========
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/spakin/disjoint)](https://goreportcard.com/report/github.com/spakin/disjoint) [![Build Status](https://travis-ci.com/spakin/disjoint.svg?branch=master)](https://travis-ci.com/spakin/disjoint) [![Go Reference](https://pkg.go.dev/badge/github.com/spakin/disjoint.svg)](https://pkg.go.dev/github.com/spakin/disjoint)
+[![Go Report Card](https://goreportcard.com/badge/github.com/spakin/disjoint)](https://goreportcard.com/report/github.com/spakin/disjoint) [![Build Status](https://github.com/spakin/disjoint/actions/workflows/go.yml/badge.svg)](https://github.com/spakin/disjoint/actions) [![Go Reference](https://pkg.go.dev/badge/github.com/spakin/disjoint.svg)](https://pkg.go.dev/github.com/spakin/disjoint)
 
 Introduction
 ------------
 
-`disjoint` is a package for the [Go programming language](http://golang.org/) that implements a [disjoint-set data structure](http://en.wikipedia.org/wiki/Disjoint-set_data_structure) (also known as a union-find data structure).  Disjoint sets are collections of unordered elements in which an element belongs to exactly one set at a time.  Sets can be merged destructively, meaning that the the original sets cease to exist once their union is taken.  And elements can be compared for belonging to the same set.  These operations run in amortized near-constant time.
+`disjoint` is a package for the [Go programming language](http://go.dev/) that implements a [disjoint-set data structure](http://en.wikipedia.org/wiki/Disjoint-set_data_structure) (also known as a union-find data structure).  Disjoint sets are collections of unordered elements in which an element belongs to exactly one set at a time.  Sets can be merged destructively, meaning that the the original sets cease to exist once their union is taken.  And elements can be compared for belonging to the same set.  These operations run in amortized near-constant time.
 
 Installation
 ------------
 
-`disjoint` is a [Go module](https://golang.org/ref/mod) and therefore should be installed automatically from any program that imports it with
+`disjoint` is a [Go module](https://go.dev/ref/mod) and therefore should be installed with
+```bash
+go get github.com/spakin/disjoint
+```
+and imported with
 ```Go
 import "github.com/spakin/disjoint"
 ```
-It can also be installed manually by issuing a
-```
-go get github.com/spakin/disjoint
-```
-command.
 
 Usage
 -----
