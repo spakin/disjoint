@@ -13,11 +13,11 @@ Installation
 
 `disjoint` is a [Go module](https://go.dev/ref/mod) and therefore should be installed with
 ```bash
-go get github.com/spakin/disjoint
+go get github.com/spakin/disjoint/v2
 ```
 and imported with
 ```Go
-import "github.com/spakin/disjoint"
+import "github.com/spakin/disjoint/v2"
 ```
 
 Usage

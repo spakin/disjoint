@@ -60,7 +60,7 @@ func NewElement() *Element {
 }
 
 // Find returns an arbitrary element of a set when invoked on any element of
-// the set, The important feature is that it returns the same value when
+// the set.  The important feature is that it returns the same value when
 // invoked on any element of the set.  Consequently, it can be used to test if
 // two elements belong to the same set.
 func (e *Element) Find() *Element {
@@ -72,10 +72,73 @@ func (e *Element) Find() *Element {
 }
 
 // Union establishes the union of two sets when given an element from each set.
-// Afterwards, the original sets no longer exist as separate entities.
-func Union(e1, e2 *Element) {
+// Afterward, the original sets no longer exist as separate entities.  Note
+// that e1.Union(e2) is equivalent to e2.Union(e1).
+func (e *Element) Union(e2 *Element) {
 	// Ensure the two Elements aren't already part of the same union.
-	e1Root := e1.Find()
+	e1Root := e.Find()
+	e2Root := e2.Find()
+	if e1Root == e2Root {
+		return
+	}
+
+	// Create a union by making the shorter tree point to the root of the
+	// larger tree.
+	switch {
+	case e1Root.rank < e2Root.rank:
+		e1Root.parent = e2Root
+	case e1Root.rank > e2Root.rank:
+		e2Root.parent = e1Root
+	default:
+		e2Root.parent = e1Root
+		e1Root.rank++
+	}
+}
+
+// An ElementData represents a single element of a set.
+//
+// Note that, perhaps surprisingly, the package does not expose a corresponding
+// Set data type.  Sets exist only implicitly based on the sequence of Union
+// operations performed on their elements.
+//
+// The Data field lets a program store arbitrary data within an ElementData.
+// This can be used, for example, to keep track of the total number of elements
+// in the associated set, the set's maximum-valued element, a map of attributes
+// associated with the set's elements, or even a map or slice of all elements
+// in the set.  (That last possibility would associate a linear-time cost with
+// each Union operation but would not affect Find's near-constant running
+// time.)
+type ElementData[T any] struct {
+	parent *ElementData[T] // Parent element
+	rank   int             // Rank (approximate depth) of the subtree with this element as root
+	Data   T               // Arbitrary user-provided payload
+}
+
+// NewElementData creates a singleton set and returns its sole element.
+func NewElementData[T any]() *ElementData[T] {
+	s := &ElementData[T]{}
+	s.parent = s
+	return s
+}
+
+// Find returns an arbitrary element of a set when invoked on any element of
+// the set.  The important feature is that it returns the same value when
+// invoked on any element of the set.  Consequently, it can be used to test if
+// two elements belong to the same set.
+func (e *ElementData[T]) Find() *ElementData[T] {
+	for e.parent != e {
+		e.parent = e.parent.parent
+		e = e.parent
+	}
+	return e
+}
+
+// Union establishes the union of two sets when given an element from each set.
+// Afterward, the original sets no longer exist as separate entities.  Note
+// that e1.Union(e2) is equivalent to e2.Union(e1).
+func (e *ElementData[T]) Union(e2 *ElementData[T]) {
+	// Ensure the two Elements aren't already part of the same union.
+	e1Root := e.Find()
 	e2Root := e2.Find()
 	if e1Root == e2Root {
 		return

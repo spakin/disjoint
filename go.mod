@@ -1,3 +1,3 @@
-module github.com/spakin/disjoint
+module github.com/spakin/disjoint/v2
 
-go 1.17
+go 1.21.4

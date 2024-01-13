@@ -20,10 +20,10 @@ func TestEvenOdd(t *testing.T) {
 	// Merge each even number with its predecessor and each odd number with
 	// its predecessor.
 	for i := 2; i < N; i += 2 {
-		Union(sets[i], sets[i-2])
+		sets[i].Union(sets[i-2])
 	}
 	for i := 3; i < N; i += 2 {
-		Union(sets[i], sets[i-2])
+		sets[i].Union(sets[i-2])
 	}
 
 	// Ensure that even numbers are in the same union as other even numbers
@@ -40,24 +40,24 @@ func TestEvenOdd(t *testing.T) {
 	}
 }
 
-// TestExtraData tests disjoint sets that carry auxiliary data.
-func TestExtraData(t *testing.T) {
+// TestElementData tests disjoint sets that carry auxiliary data.
+func TestElementData(t *testing.T) {
 	// Create six singleton sets, each maintaining integer data.
-	sets := make([]*Element, 6)
+	sets := make([]*ElementData[int], 6)
 	for i := 0; i < 6; i++ {
-		sets[i] = NewElement()
+		sets[i] = NewElementData[int]()
 		sets[i].Data = (6 - i) * 100
 	}
 
 	// Define a function that merges two sets while retaining the
 	// larger data value.
-	merge := func(e1, e2 *Element) *Element {
-		v1 := e1.Data.(int)
-		vm := e2.Data.(int)
+	merge := func(e1, e2 *ElementData[int]) *ElementData[int] {
+		v1 := e1.Data
+		vm := e2.Data
 		if v1 > vm {
 			vm = v1
 		}
-		Union(e1, e2)
+		e1.Union(e2)
 		e := e1.Find()
 		e.Data = vm
 		return e
@@ -65,20 +65,20 @@ func TestExtraData(t *testing.T) {
 
 	// Merge sets 1, 0, and 4 in that order.
 	e1 := merge(merge(sets[1], sets[0]), sets[4])
-	if e1.Data.(int) != 600 {
-		t.Fatalf("Expected 600 but observed %d", e1.Data.(int))
+	if e1.Data != 600 {
+		t.Fatalf("Expected 600 but observed %d", e1.Data)
 	}
 
 	// Merge sets 2, 3, and 5 in that order.
 	e2 := merge(merge(sets[2], sets[3]), sets[5])
-	if e2.Data.(int) != 400 {
-		t.Fatalf("Expected 400 but observed %d", e2.Data.(int))
+	if e2.Data != 400 {
+		t.Fatalf("Expected 400 but observed %d", e2.Data)
 	}
 
 	// Merge the preceding two sets.
 	e12 := merge(e1, e2)
-	if e12.Data.(int) != 600 {
-		t.Fatalf("Expected 600 but observed %d", e12.Data.(int))
+	if e12.Data != 600 {
+		t.Fatalf("Expected 600 but observed %d", e12.Data)
 	}
 }
 
@@ -113,7 +113,7 @@ func pairwiseUnions(elts []*Element, idxes [][2]int) {
 	for _, idx := range idxes {
 		e1 := elts[idx[0]]
 		e2 := elts[idx[1]]
-		Union(e1, e2)
+		e1.Union(e2)
 	}
 }
 
